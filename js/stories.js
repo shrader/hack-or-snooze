@@ -58,14 +58,14 @@ $("#addStoryButton").on("click",  async (e)=>{
   submitStory();
   console.log(storyList.stories);
   putStoriesOnPage();
+
 });
 
 function submitStory() {
   let storyObj = {title: $storyAddTitle.val(), author: $storyAddAuthor.val(), url: $storyAddURL.val()};
   console.log("submitStory");
   storyList.addStory(currentUser, storyObj);
-  //hostName = new URL(storyObj);
+  // hostName = new URL(storyObj);
   storyObj.hostName = "google.com";
   storyList.stories.unshift(storyObj);
-  storyList.stories.pop();
 }

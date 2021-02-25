@@ -25,7 +25,9 @@ class Story {
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    //stackoverflow src= https://stackoverflow.com/questions/736513/how-do-i-parse-a-url-into-hostname-and-path-in-javascript
+    let site = new URL(this.url);
+    return site.hostname;
   }
 }
 
@@ -73,8 +75,9 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
+  async addStory( currentUser, newStory) {
+    await axios.post(`${BASE_URL}/stories`,
+    {token: currentUser.loginToken, story: newStory});
   }
 }
 

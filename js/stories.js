@@ -50,3 +50,22 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+//after submitting story update automatically by running putStoriesOnPage
+//then hide the form again
+$("#addStoryButton").on("click",  async (e)=>{
+  e.preventDefault();
+  submitStory();
+  console.log(storyList.stories);
+  putStoriesOnPage();
+});
+
+function submitStory() {
+  let storyObj = {title: $storyAddTitle.val(), author: $storyAddAuthor.val(), url: $storyAddURL.val()};
+  console.log("submitStory");
+  storyList.addStory(currentUser, storyObj);
+  //hostName = new URL(storyObj);
+  storyObj.hostName = "google.com";
+  storyList.stories.unshift(storyObj);
+  storyList.stories.pop();
+}

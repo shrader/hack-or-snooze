@@ -10,9 +10,15 @@ const $allStoriesList = $("#all-stories-list");
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
 
+const $storyAddAuthor = $("#authorInput");
+const $storyAddTitle = $("#titleInput");
+const $storyAddURL = $("#urlInput");
+const $storySubmitBtn = $("#addStoryButton")
+
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
+const $navSubmit = $("#addStory");
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After

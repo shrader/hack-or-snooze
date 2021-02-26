@@ -204,18 +204,15 @@ class User {
     }
   }
 
-  addFavorite(Story) {
-    axios.post(`${BASE_URL}/users/${this.username}/favorites/${Story.storyId}`, {
+  addFavorite(id) {
+    axios.post(`${BASE_URL}/users/${this.username}/favorites/${id}`, {
       token: this.loginToken
     })
-    story.favorite = true;
   }
 
-  removeFavorite(Story) {
-    axios.delete(`${BASE_URL}/users/${this.username}/favorites/${Story.storyId}`,{data: {
+  removeFavorite(id) {
+    axios.delete(`${BASE_URL}/users/${this.username}/favorites/${id}`,{data: {
       token: this.loginToken
     }})
-    
-    story.favorite = false;
   }
 }

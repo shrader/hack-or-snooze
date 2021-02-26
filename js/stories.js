@@ -1,5 +1,6 @@
 "use strict";
 
+
 // This is the global list of the stories, an instance of StoryList
 let storyList;
 let $favoriteStar = $(".fa-star");
@@ -26,7 +27,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <small class="favoriteStar"><i class="far fa-star"></i></small>
+        <small class="favoriteStar"><i class="star far fa-star"></i></small>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -35,6 +36,7 @@ function generateStoryMarkup(story) {
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
+    
 }
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
@@ -54,17 +56,37 @@ function putStoriesOnPage() {
 }
 
 //click event listener for favorite button (star) to fire toggleFavorite
-$(".fa-star").on("click", () => console.log("this worked"));
-
+$body.on('click', '.star', (evt) => {
+  toggleFavorite(evt)
+  // toggleStarIcon(evt)
+});
 
 //toggle favorte star to show if favorite also add to user favorites
 function toggleFavorite(evt) {
-  //evt.stopPropagation();
-  //evt.stopImmediatePropagation();
   console.debug("toggleFunction()");
+
   //see what the parent of the click event is
-  console.log($(evt).parent().parent());
+  console.log($(evt.target).parent().parent());
+  let liElement = $(evt.target).parent().parent();
+  let storyId = liElement[0].id;
+  
+  // cycle through user favs 
+  for (let el of currentUser.favorites) {
+    // id matches set to false and remove
+    if(el.storyId === storyId) {
+      el.favorite = false;      
+      currentUser.removeFavorite(storyId)
+    }
+    else {
+      el.favorite = true;
+      currentUser.addFavorite(storyId);
+    }
+  }
 }
+
+// function toggleStarIcon(evt) {
+//   console.log($(evt.target).class())
+// }
 
 // event to append story to page
 $("#addStoryButton").on("click",  async (e)=>{
@@ -93,4 +115,10 @@ async function submitStory() {
   
   // add that Story instance to the stories list
   storyList.stories.unshift(Story);
+}
+
+function updateFavorites() {
+  currentUser.favorites.forEach( e => { 
+    e.favorite = true; 
+  })
 }

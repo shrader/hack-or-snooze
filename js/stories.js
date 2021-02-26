@@ -75,9 +75,6 @@ async function submitStory() {
   
   // create an instance to return to stories list.
   let Story = await storyList.addStory(currentUser, storyObj);
-
-  // for setting dynamic hostname
-  // hostName = new URL(storyObj);
   
   // add that Story instance to the stories list
   storyList.stories.unshift(Story);

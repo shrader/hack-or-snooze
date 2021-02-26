@@ -44,6 +44,7 @@ async function start() {
   await getAndShowStoriesOnStart();
 
   // if we got a logged-in user
+// THIS MAY BE THE USER LOADED FROM SERVER
   if (currentUser) updateUIOnUserLogin();
 }
 

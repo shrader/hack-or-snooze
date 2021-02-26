@@ -35,6 +35,7 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
+// click event of submit word in navbar
 $navSubmit.on('click', ()=>{
   $(".add-story-info").css("display", "inline");
 })

@@ -1,7 +1,6 @@
 "use strict";
 
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
-
 /******************************************************************************
  * Story: a single story in the system
  */
@@ -76,11 +75,17 @@ class StoryList {
    */
 
   async addStory( currentUser, newStory) {
-    let story = await axios.post(`${BASE_URL}/stories`,
-    {token: currentUser.loginToken, story: newStory});
-    // storyId, title, author, url, username, createdAt
-    return new Story({id: story.storyId, title: story.title, author: story.author, username: story.username,
-    createdAt: story.createdAt});
+    // POST request for storyMetaData with given args
+    let storyData = await axios.post(`${BASE_URL}/stories`,{
+      token: currentUser.loginToken, 
+      story: newStory
+    });
+
+    // parse metaData for the necessary obj
+    let story = storyData.data.story;
+
+    // return an instance of story with the required constructor args
+    return new Story(story);
   }
 }
 

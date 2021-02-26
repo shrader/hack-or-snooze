@@ -51,21 +51,34 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-//after submitting story update automatically by running putStoriesOnPage
-//then hide the form again
+// event to append story to page
 $("#addStoryButton").on("click",  async (e)=>{
+  console.debug("click event triggered")
+  
   e.preventDefault();
-  submitStory();
-  console.log(storyList.stories);
+  
+  // update global stories list
+  await submitStory();
   putStoriesOnPage();
 
+  //hide the form
+  $(".add-story-info").css("display", "none");
 });
 
-function submitStory() {
+
+// create Story instance that is added to global stories list 
+async function submitStory() {
+  console.debug("submitStory");
+
+  // store current user input to a variable
   let storyObj = {title: $storyAddTitle.val(), author: $storyAddAuthor.val(), url: $storyAddURL.val()};
-  console.log("submitStory");
-  storyList.addStory(currentUser, storyObj);
+  
+  // create an instance to return to stories list.
+  let Story = await storyList.addStory(currentUser, storyObj);
+
+  // for setting dynamic hostname
   // hostName = new URL(storyObj);
-  storyObj.hostName = "google.com";
-  storyList.stories.unshift(storyObj);
+  
+  // add that Story instance to the stories list
+  storyList.stories.unshift(Story);
 }

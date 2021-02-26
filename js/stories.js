@@ -62,7 +62,7 @@ $("#addStoryButton").on("click",  async (e)=>{
   putStoriesOnPage();
 
   //hide the form
-  $(".add-story-info").css("display", "none");
+  $(".add-story-info").hide();
 });
 
 

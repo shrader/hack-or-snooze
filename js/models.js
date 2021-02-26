@@ -212,9 +212,10 @@ class User {
   }
 
   removeFavorite(Story) {
-    axios.delete(`${BASE_URL}/users/${this.username}/favorites/${Story.storyId}`, {
+    axios.delete(`${BASE_URL}/users/${this.username}/favorites/${Story.storyId}`,{data: {
       token: this.loginToken
-    })
+    }})
+    
     story.favorite = false;
   }
 }

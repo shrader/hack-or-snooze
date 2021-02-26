@@ -21,9 +21,8 @@ async function login(evt) {
   // which we'll make the globally-available, logged-in user.
   currentUser = await User.login(username, password);
 
-  
-  console.log(currentUser.favorites[0].favorite)
-  // put as function?
+
+  //after login set each story in favortes to favorite: true
   currentUser.favorites.forEach( e => { 
     e.favorite = true; 
   })

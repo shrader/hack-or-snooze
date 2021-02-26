@@ -2,6 +2,7 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
+let $favoriteStar = $(".fa-star");
 
 /** Get and show stories when site first loads. */
 
@@ -25,6 +26,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+        <small class="favoriteStar"><i class="far fa-star"></i></small>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -49,6 +51,19 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
+}
+
+//click event listener for favorite button (star) to fire toggleFavorite
+$(".fa-star").on("click", () => console.log("this worked"));
+
+
+//toggle favorte star to show if favorite also add to user favorites
+function toggleFavorite(evt) {
+  //evt.stopPropagation();
+  //evt.stopImmediatePropagation();
+  console.debug("toggleFunction()");
+  //see what the parent of the click event is
+  console.log($(evt).parent().parent());
 }
 
 // event to append story to page

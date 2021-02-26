@@ -21,6 +21,13 @@ async function login(evt) {
   // which we'll make the globally-available, logged-in user.
   currentUser = await User.login(username, password);
 
+  
+  console.log(currentUser.favorites[0].favorite)
+  // put as function?
+  currentUser.favorites.forEach( e => { 
+    e.favorite = true; 
+  })
+
   $loginForm.trigger("reset");
 
   saveUserCredentialsInLocalStorage();

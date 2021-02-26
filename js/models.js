@@ -11,13 +11,14 @@ class Story {
    *   - {title, author, url, username, storyId, createdAt}
    */
 
-  constructor({ storyId, title, author, url, username, createdAt }) {
+  constructor({ storyId, title, author, url, username, createdAt}) {
     this.storyId = storyId;
     this.title = title;
     this.author = author;
     this.url = url;
     this.username = username;
     this.createdAt = createdAt;
+    this.favorite = false;
   }
 
   /** Parses hostname out of URL and returns it. */
@@ -201,5 +202,19 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  addFavorite(Story) {
+    axios.post(`${BASE_URL}/users/${this.username}/favorites/${Story.storyId}`, {
+      token: this.loginToken
+    })
+    story.favorite = true;
+  }
+
+  removeFavorite(Story) {
+    axios.delete(`${BASE_URL}/users/${this.username}/favorites/${Story.storyId}`, {
+      token: this.loginToken
+    })
+    story.favorite = false;
   }
 }

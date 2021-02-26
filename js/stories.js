@@ -27,7 +27,9 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <small class="favoriteStar"><i class="star far fa-star"></i></small>
+        <small class="favoriteStar">
+        <i class="star far fa-star"></i>
+        </small>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -58,7 +60,7 @@ function putStoriesOnPage() {
 //click event listener for favorite button (star) to fire toggleFavorite
 $body.on('click', '.star', (evt) => {
   toggleFavorite(evt)
-  // toggleStarIcon(evt)
+  toggleStarIcon(evt)
 });
 
 //toggle favorte star to show if favorite also add to user favorites
@@ -66,27 +68,40 @@ function toggleFavorite(evt) {
   console.debug("toggleFunction()");
 
   //see what the parent of the click event is
-  console.log($(evt.target).parent().parent());
   let liElement = $(evt.target).parent().parent();
   let storyId = liElement[0].id;
   
-  // cycle through user favs 
-  for (let el of currentUser.favorites) {
-    // id matches set to false and remove
-    if(el.storyId === storyId) {
-      el.favorite = false;      
-      currentUser.removeFavorite(storyId)
-    }
-    else {
-      el.favorite = true;
-      currentUser.addFavorite(storyId);
+  
+
+  let foundStory;
+
+  //find the story clicked on in storyList and save to foundStory
+  for (let story of storyList.stories) {
+    if (story.storyId === storyId) {
+      foundStory = story;
+      break;
     }
   }
+
+  //if foundStory is not a favorite add it to favorites on the backend and frontend and toggle the favorite property
+  //if it already is a favorite remove it from favorites and update the front and back end as well as the property
+  if (foundStory.favorite) {
+    foundStory.favorite = false;
+    currentUser.removeFavorite(foundStory.storyId)
+    let index = currentUser.favorites.indexOf(foundStory);
+    currentUser.favorites.splice(index, 1);
+  } else {
+    foundStory.favorite = true;
+    currentUser.addFavorite(foundStory.storyId);
+    currentUser.favorites.push(foundStory);
+  }
+
 }
 
-// function toggleStarIcon(evt) {
-//   console.log($(evt.target).class())
-// }
+function toggleStarIcon(evt) {
+  //evt.classList.toggle("fa-thumbs-down")
+  evt.target.classList.toggle("fas");
+}
 
 // event to append story to page
 $("#addStoryButton").on("click",  async (e)=>{

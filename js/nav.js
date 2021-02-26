@@ -37,5 +37,5 @@ function updateNavOnLogin() {
 
 // click event of submit word in navbar
 $navSubmit.on('click', ()=>{
-  $(".add-story-info").css("display", "inline");
+  $(".add-story-info").show();
 })
